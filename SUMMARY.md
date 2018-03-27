@@ -30,3 +30,8 @@
 * [RAML HTTP 0.8](models/raml08.md)
 * [RAML HTTP 1.0](models/raml10.md)
 * [Open API 2.0](models/oas20.md)
+
+### CHANGES
+
+* [v 1.3.0](CHANGES.md#changes-in-amf-130)
+* [v 1.2.1](CHANGES.md#changes-in-amf-121)

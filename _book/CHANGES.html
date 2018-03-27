@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>v 1.3.0 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -59,8 +59,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="documents/intro.html" />
+    <link rel="next" href="CHANGES.html" />
     
+    
+    <link rel="prev" href="models/oas20.html" />
     
 
     </head>
@@ -105,7 +107,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -486,7 +488,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >v 1.3.0</a>
     </h1>
 </div>
 
@@ -501,18 +503,160 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="introduction">Introduction</h1>
-<p>MuleSoft&apos;s Application Modeling Framework (<a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a>) is a set of tools to describe and connect information into a unified knowledge graph in a simple way.</p>
-<p><a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> works at three different levels:</p>
-<ul>
-<li>Describes the meaning of the information as a set of shared vocabularies</li>
-<li>Publishes data as a decentralized web of modular linked documents making use of the defined vocabulary terms and following well defined schemas</li>
-<li>Integrates the linked documents as a single data graph that can be browsed and queried by <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> clients</li>
+                                <h1 id="changes-in-amf-130">Changes in AMF 1.3.0</h1>
+<p><a href="https://github.com/mulesoft/amf/releases/tag/v1.3.0" target="_blank">Released March 26, 2018.</a></p>
+<p><a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> 1.3.0 introduces non-backwards-compatible changes</p>
+<h2 id="packages-and-naming">Packages and naming</h2>
+<p>Client classes are moving to <code>amf.client.*</code> package. All core, webapi, and vocabularies client classes are moved. Plugins, parsers, renderers, and other classes where moved as well.</p>
+<p>All <code>*Generator</code> classes are now <code>*Renderer</code>.</p>
+<h2 id="fields">Fields</h2>
+<p>Fields on client classes (<code>String</code>, <code>Int</code>, etc.) are now <code>StrField</code>, <code>IntField</code>, etc. This allows to retrieve raml scalar-value annotations, lexical information, etc. for all scalar values. As well, some convenient methods where added to handle with <code>undefined</code> or <code>null</code> field values:</p>
+<pre><code>val field: StrField | Intfield | BoolField | FloatField | DoubleField = ...
+
+field.value() // returns the actual value of this field. If field is null will return &quot;&quot;, 0, or false depending on the field type.
+field.nonNull // returns a boolean indicating the field is not null
+field.isNull // returns a boolean indicating the field is null or undefined
+field.option() // returns an optional value for this field
+field.is(&quot;Some value&quot;) // returns true if field value is not-null and equals given value
+field.is(_ == &quot;Some value&quot;) // returns true if field value is not-null and accepts given predicate
+
+/** Only for StrField */
+field.isNullOrEmpty // returns a boolean indicating the field is null, undefined, or an empty string
+field.nonEmpty // returns a boolean indicating the field is not null, and string value is not empty
+</code></pre><h2 id="vocabularies-plugin">Vocabularies Plugin</h2>
+<p>Vocabularies plugin has been rewritten from scratch.</p>
+<p><strong>Changes in Dialect definition file</strong></p>
+<pre><code>documents:
+  library:
+    declares:
+      products: ProductNode
+  root:
+    encodes: PresentationNode
+</code></pre><p>instead of previous:</p>
+<pre><code>raml:
+  module:
+    declares:
+      products: ProductNode
+  document:
+    encodes: PresentationNode
+</code></pre><ul>
+<li>replace <code>hash</code> for <code>mapKey</code></li>
+<li>If you use <code>mapKey</code>, is no longer necessary to specify <code>allowMultiple: true</code></li>
+<li>range <code>number</code> to <code>integer</code></li>
 </ul>
-<p>The preferred syntax to describe information and data in <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> is based on the YAML syntax used in MuleSoft&apos;s RAML 1.0 API specification language. RAML is an extension to YAML that allows documents to link to other RAML document fragments and build reusable collections of data as RAML libraries. RAML 1.0 and RAML 0.8 documents are valid documents supported by <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a>.
-Other types of documents, like OpenAPI documents, or GraphQL schemas can be integrated in <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> through plugins. OpenAPI 2.0 is already supported by <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> 1.0.</p>
-<p>HTTP and hyperlinks are the chosen mechanisms to publish and link data in <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a>. Information published using <a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> is RESTful (including hypermedia) by design and it can be manipulated through the uniform HTTP interface.</p>
-<p><a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> uses W3C recommendations like JSON-LD and SHACL to integrate, validate and make it easy for machines to process the information described in human friendly RAML documents.</p>
+<p><strong>Changes in Vocabulary definition file</strong></p>
+<ul>
+<li>range <code>number</code> to <code>integer</code></li>
+</ul>
+<h2 id="webapi-plugin">WebApi Plugin</h2>
+<p>WebApi model has changed for future OAS 3.X support. Almost all changes where additions:</p>
+<p><strong>WebApi</strong></p>
+<ul>
+<li><strong>servers</strong> array field was added</li>
+<li><strong>baseUriparameters</strong> field was deleted (it&apos;s now <em>default server</em> variables field)</li>
+<li><strong>host</strong> field was deleted (it&apos;s now part of the <em>default server</em> url field)</li>
+<li><strong>basePath</strong> field was deleted (it&apos;s now part of the <em>default server</em> url field)</li>
+</ul>
+<p><strong>Server</strong></p>
+<ul>
+<li><strong>url</strong> field was added</li>
+<li><strong>description</strong> field was added</li>
+<li><strong>variables</strong> field was added</li>
+</ul>
+<p>A <em>default server</em> is synthesized when parsing RAML or OAS 2.</p>
+<p><strong>EndPoint</strong></p>
+<ul>
+<li><strong>summary</strong> field was added</li>
+<li><strong>servers</strong> array field was added</li>
+</ul>
+<p><strong>Operation</strong></p>
+<ul>
+<li><strong>callbacks</strong> field was added</li>
+<li><strong>servers</strong> array field was added</li>
+</ul>
+<p><strong>Callback</strong></p>
+<ul>
+<li><strong>name</strong> field was added</li>
+<li><strong>expression</strong> field was added</li>
+<li><strong>endpoint</strong> field was added</li>
+</ul>
+<p><strong>Parameter</strong></p>
+<ul>
+<li><strong>deprecated</strong> field was added</li>
+<li><strong>allowEmptyValue</strong> field was added</li>
+<li><strong>style</strong> field was added</li>
+<li><strong>explode</strong> field was added</li>
+<li><strong>allowReserved</strong> field was added</li>
+<li><strong>payloads</strong> field was added</li>
+<li><strong>examples</strong> field was added</li>
+</ul>
+<p><strong>Payload</strong></p>
+<ul>
+<li><strong>examples</strong> field was added</li>
+<li><strong>encoding</strong> field was added</li>
+</ul>
+<p><strong>Encoding</strong></p>
+<ul>
+<li><strong>propertyName</strong> field was added</li>
+<li><strong>contentType</strong> field was added</li>
+<li><strong>headers</strong> array field was added</li>
+<li><strong>style</strong> field was added</li>
+<li><strong>explode</strong> field was added</li>
+<li><strong>allowReserved</strong> field was added</li>
+</ul>
+<p><strong>Request</strong></p>
+<ul>
+<li><strong>description</strong> field was added</li>
+<li><strong>required</strong> field was added</li>
+<li><strong>cookieParameters</strong> array field was added</li>
+</ul>
+<p><strong>Response</strong></p>
+<ul>
+<li><strong>links</strong> field was added</li>
+</ul>
+<p><strong>TemplatedLink</strong></p>
+<ul>
+<li><strong>name</strong> field was added</li>
+<li><strong>description</strong> field was added</li>
+<li><strong>template</strong> field was added</li>
+<li><strong>operationId</strong> field was added</li>
+<li><strong>mapping</strong> array field was added</li>
+<li><strong>requestBody</strong> field was added</li>
+<li><strong>server</strong> field was added</li>
+</ul>
+<p><strong>IriTemplateMapping</strong></p>
+<ul>
+<li><strong>templateVariable</strong> field was added</li>
+<li><strong>linkExpression</strong> field was added</li>
+</ul>
+<p><strong>SecurityScheme</strong></p>
+<ul>
+<li><strong>withHttpSettings</strong> setting was added</li>
+<li><strong>withOpenIdConnectSettings</strong> setting was added</li>
+</ul>
+<p><strong>HttpSettings</strong></p>
+<ul>
+<li><strong>scheme</strong> field was added</li>
+<li><strong>bearerFormat</strong> field was added</li>
+</ul>
+<p><strong>OpenIdconnect</strong></p>
+<ul>
+<li><strong>url</strong> field was added</li>
+</ul>
+<h2 id="other-changes">Other changes</h2>
+<ul>
+<li><code>resolve</code> method now accepts a pipelineId to customize a resolution pipeline.</li>
+<li><code>generateString</code> method from <code>Renderer</code> is now async.</li>
+</ul>
+<h1 id="changes-in-amf-121">Changes in AMF 1.2.1</h1>
+<p><a href="https://github.com/mulesoft/amf/releases/tag/v1.2.1" target="_blank">Released March 19, 2018.</a></p>
+<p><a href="GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> 1.2.1 does not introduce any non-backwards-compatible change.</p>
+<h2 id="examples">Examples</h2>
+<p>Example had a <code>value</code> field containing the literal string parsed example.
+A <code>structuredValue</code> field was added, containing the parsed example as a <code>DataNode</code>.</p>
+<h2 id="jsonschema-generation">JsonSchema generation</h2>
+<p>All <code>AnyShape</code> instances now contains a handy <code>toJsonSchema</code> method that returns the json schema for the underlying shape.</p>
+<p>As well a <code>validate(payload)</code> method was added to all <code>AnyShape</code> instances.</p>
 
                                 
                                 </section>
@@ -540,8 +684,12 @@ Other types of documents, like OpenAPI documents, or GraphQL schemas can be inte
 
             
                 
+                <a href="models/oas20.html" class="navigation navigation-prev " aria-label="Previous page: Open API 2.0">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="documents/intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Modular Linked Documents">
+                
+                <a href="CHANGES.html#changes-in-amf-121" class="navigation navigation-next " aria-label="Next page: v 1.2.1">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -552,7 +700,7 @@ Other types of documents, like OpenAPI documents, or GraphQL schemas can be inte
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Modular Linked Documents","level":"1.2","depth":1,"path":"documents/intro.md","ref":"documents/intro.md","articles":[{"title":"RAML Syntax","level":"1.2.1","depth":2,"path":"documents/syntax.md","ref":"documents/syntax.md","articles":[]},{"title":"Types of RAML Documents","level":"1.2.2","depth":2,"path":"documents/types.md","ref":"documents/types.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-03-23T03:25:00.764Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-27T04:43:33.008Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"v 1.3.0","level":"4.1","depth":1,"next":{"title":"v 1.2.1","level":"4.2","depth":1,"anchor":"#changes-in-amf-121","path":"CHANGES.md","ref":"CHANGES.md#changes-in-amf-121","articles":[]},"previous":{"title":"Open API 2.0","level":"3.4","depth":1,"path":"models/oas20.md","ref":"models/oas20.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"CHANGES.md","mtime":"2018-03-27T04:44:22.812Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-27T04:43:33.008Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
