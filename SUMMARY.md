@@ -20,9 +20,10 @@
 * [Initialization](programming/initialization.md)
 * [Parsing](programming/parsing.md)
 * [Resolution](programming/resolution.md)
-* [Generation](programming/generation.md)
+* [Rendering](programming/rendering.md)
 * [Translation](programming/translation.md)
 * [Validation](programming/validation.md)
+* [Building](programming/building.md)
 
 ### AMF Default Models
 

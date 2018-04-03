@@ -59,7 +59,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../models/intro.html" />
+    <link rel="next" href="building.html" />
     
     
     <link rel="prev" href="translation.html" />
@@ -327,12 +327,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="generation.html">
+        <li class="chapter " data-level="2.5" data-path="rendering.html">
             
-                <a href="generation.html">
+                <a href="rendering.html">
             
                     
-                    Generation
+                    Rendering
             
                 </a>
             
@@ -359,6 +359,19 @@
             
                     
                     Validation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="building.html">
+            
+                <a href="building.html">
+            
+                    
+                    Building
             
                 </a>
             
@@ -1212,45 +1225,29 @@ $ <span class="hljs-built_in">echo</span> $?
 </code></pre>
 <h2 id="using-amf-validation-programmatically">Using AMF validation programmatically</h2>
 <p>When using <a href="../GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> as a library, validation can be used throught the <code>reportValidation</code> and <code>reportCustomValidation</code> methods available in every <a href="../GLOSSARY.html#amf" class="glossary-term" title="Application Modeling Framework, information modeling toolkit developed by MuleSoft, subject of this book.">AMF</a> parser class (RamlParser, OasParser and AmfParser).</p>
-<p>The following Java snippet shows how to invoke programmatically the validation over the examples defined previously to be tested from the command line:</p>
-<pre><code class="lang-java"><span class="hljs-keyword">package</span> mulesfot.amf;
+<p>The following Java snippets shows how to programmatically invoke validations.</p>
+<h3 id="webapi-default-validation">WebApi default validation</h3>
+<pre><code class="lang-java">    AMF.init().get();
 
-<span class="hljs-keyword">import</span> amf.client.RamlParser;
-<span class="hljs-keyword">import</span> amf.core.validation.AMFValidationReport;
+    <span class="hljs-comment">/* Parsing Raml 10 with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml10Parser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api-error.raml&quot;</span>).get();
 
-<span class="hljs-keyword">import</span> java.util.concurrent.ExecutionException;
+    <span class="hljs-comment">/* Run RAML default validations on parsed unit (expects one error). */</span>
+    <span class="hljs-keyword">final</span> ValidationReport report = AMF.validate(result, <span class="hljs-string">&quot;RAML&quot;</span>, <span class="hljs-string">&quot;RAML&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;report.conforms()? &quot;</span> + report.conforms());
+    <span class="hljs-keyword">return</span> report;
+</code></pre>
+<h3 id="webapi-custom-validation">WebApi custom validation</h3>
+<pre><code class="lang-java">    AMF.init().get();
 
-<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.System.out;
+    <span class="hljs-comment">/* Parsing Raml 10 with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml10Parser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api-error.raml&quot;</span>).get();
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ValidationTest</span> </span>{
-
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ExecutionException, InterruptedException </span>{
-
-    <span class="hljs-keyword">final</span> RamlParser parser = <span class="hljs-keyword">new</span> RamlParser();
-
-    parser.parseFileAsync(<span class="hljs-string">&quot;file://validation/api.raml&quot;</span>).get();
-
-    <span class="hljs-comment">// Default RAML validation</span>
-    <span class="hljs-keyword">final</span> AMFValidationReport ramlReport = parser.reportValidation(<span class="hljs-string">&quot;RAML&quot;</span>).get();
-
-    <span class="hljs-keyword">final</span> AMFValidationReport oasReport = parser.reportValidation(<span class="hljs-string">&quot;OpenAPI&quot;</span>).get();
-
-    <span class="hljs-keyword">final</span> AMFValidationReport customReport = parser.reportCustomValidation(<span class="hljs-string">&quot;Test&quot;</span>, <span class="hljs-string">&quot;file://validation/profile.raml&quot;</span>).get();
-
-    <span class="hljs-comment">// Check the results</span>
-    <span class="hljs-keyword">assert</span>(ramlReport.conforms());
-    out.println(<span class="hljs-string">&quot;API conforms to RAML profile&quot;</span>);
-    out.println(ramlReport);
-
-    <span class="hljs-keyword">assert</span>(!oasReport.conforms());
-    out.println(<span class="hljs-string">&quot;API does not conform to OpenAPI profile&quot;</span>);
-    out.println(oasReport);
-
-    <span class="hljs-keyword">assert</span>(!customReport.conforms());
-    out.println(<span class="hljs-string">&quot;API conforms to the custom profile, but with a warning&quot;</span>);
-    out.println(customReport);
-  }
-}
+    <span class="hljs-comment">/* Run RAML custom validations on parsed unit after loading profile (expects no errors). */</span>
+    <span class="hljs-keyword">final</span> String profile = AMF.loadValidationProfile(<span class="hljs-string">&quot;file://src/main/resources/validation_profile.raml&quot;</span>).get();
+    <span class="hljs-keyword">final</span> ValidationReport report = AMF.validate(result, profile, <span class="hljs-string">&quot;RAML&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;report.conforms()? &quot;</span> + report.conforms());
+    <span class="hljs-keyword">return</span> report;
 </code></pre>
 <p>Both functions produce a <code>AMFValidationReport</code> object that can be used to check conformance and inspect the validations.
 The interface is the same in the JavaScript version of the library.</p>
@@ -1632,7 +1629,7 @@ The interface is the same in the JavaScript version of the library.</p>
                 </a>
                 
                 
-                <a href="../models/intro.html" class="navigation navigation-next " aria-label="Next page: Introduction">
+                <a href="building.html" class="navigation navigation-next " aria-label="Next page: Building">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1643,7 +1640,7 @@ The interface is the same in the JavaScript version of the library.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Validation","level":"2.7","depth":1,"next":{"title":"Introduction","level":"3.1","depth":1,"path":"models/intro.md","ref":"models/intro.md","articles":[]},"previous":{"title":"Translation","level":"2.6","depth":1,"path":"programming/translation.md","ref":"programming/translation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"programming/validation.md","mtime":"2018-03-23T03:25:00.796Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-27T04:43:33.008Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Validation","level":"2.7","depth":1,"next":{"title":"Building","level":"2.8","depth":1,"path":"programming/building.md","ref":"programming/building.md","articles":[]},"previous":{"title":"Translation","level":"2.6","depth":1,"path":"programming/translation.md","ref":"programming/translation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["github-extractor"],"pluginsConfig":{"github-extractor":{"token":""},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"programming/validation.md","mtime":"2018-04-03T01:19:16.515Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-03T02:18:19.641Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1652,10 +1649,6 @@ The interface is the same in the JavaScript version of the library.</p>
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

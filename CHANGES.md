@@ -1,6 +1,6 @@
 # Changes in AMF 1.3.0
 
-[Released March 26, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.0)
+[Released March 27, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.0)
 
 AMF 1.3.0 introduces non-backwards-compatible changes
 

@@ -638,52 +638,18 @@ $ java -jar amf.jar parse -in RAML profile.raml
 
 When using AMF as a library, validation can be used throught the `reportValidation` and `reportCustomValidation` methods available in every AMF parser class (RamlParser, OasParser and AmfParser).
 
-The following Java snippet shows how to invoke programmatically the validation over the examples defined previously to be tested from the command line:
+The following Java snippets shows how to programmatically invoke validations.
 
-``` java
-package mulesfot.amf;
+### WebApi default validation
 
-import amf.client.RamlParser;
-import amf.core.validation.AMFValidationReport;
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-validation)
 
-import java.util.concurrent.ExecutionException;
+### WebApi custom validation
 
-import static java.lang.System.out;
-
-public class ValidationTest {
-
-  public static void main(String[] args) throws ExecutionException, InterruptedException {
-
-    final RamlParser parser = new RamlParser();
-
-    parser.parseFileAsync("file://validation/api.raml").get();
-
-    // Default RAML validation
-    final AMFValidationReport ramlReport = parser.reportValidation("RAML").get();
-
-    final AMFValidationReport oasReport = parser.reportValidation("OpenAPI").get();
-
-    final AMFValidationReport customReport = parser.reportCustomValidation("Test", "file://validation/profile.raml").get();
-
-    // Check the results
-    assert(ramlReport.conforms());
-    out.println("API conforms to RAML profile");
-    out.println(ramlReport);
-
-    assert(!oasReport.conforms());
-    out.println("API does not conform to OpenAPI profile");
-    out.println(oasReport);
-
-    assert(!customReport.conforms());
-    out.println("API conforms to the custom profile, but with a warning");
-    out.println(customReport);
-  }
-}
-```
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-custom-validation)
 
 Both functions produce a `AMFValidationReport` object that can be used to check conformance and inspect the validations.
 The interface is the same in the JavaScript version of the library.
-
 
 ## Appendix: AMF model classes
 

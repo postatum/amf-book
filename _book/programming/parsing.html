@@ -327,12 +327,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="generation.html">
+        <li class="chapter " data-level="2.5" data-path="rendering.html">
             
-                <a href="generation.html">
+                <a href="rendering.html">
             
                     
-                    Generation
+                    Rendering
             
                 </a>
             
@@ -359,6 +359,19 @@
             
                     
                     Validation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="building.html">
+            
+                <a href="building.html">
+            
+                    
+                    Building
             
                 </a>
             
@@ -504,9 +517,272 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="parsing">Parsing</h1>
-<h3 id="scala-example">Scala example</h3>
-<h3 id="java-example">Java example</h3>
-<h3 id="js-example">JS example</h3>
+<p>Parsers can be found at package <code>amf.client.parse</code>. All parsing methods are asynchronous, and either returns a promise/future as a result, or receives an async handler.</p>
+<h2 id="raml-10-parsing">RAML 1.0 parsing</h2>
+<h3 id="parse-file-with-future">Parse file with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 10 with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml10Parser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.raml&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-file-with-handler">Parse file with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 10 with specified file and async handler. */</span>
+    <span class="hljs-keyword">new</span> Raml10Parser().parseFile(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.raml&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;() {
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+      }
+
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+      }
+    });
+</code></pre>
+<h3 id="parse-string-with-future">Parse string with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 10 with specified content. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml10Parser().parseStringAsync(
+            <span class="hljs-string">&quot;#%RAML 1.0\n&quot;</span> +
+            <span class="hljs-string">&quot;\n&quot;</span> +
+            <span class="hljs-string">&quot;title: ACME Banking HTTP API\n&quot;</span> +
+            <span class="hljs-string">&quot;version: 1.0&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-string-with-handler">Parse string with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 10 with specified content and async handler. */</span>
+    <span class="hljs-keyword">new</span> Raml10Parser().parseString(
+            <span class="hljs-string">&quot;#%RAML 1.0\n&quot;</span> +
+                    <span class="hljs-string">&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;title: ACME Banking HTTP API\n&quot;</span> +
+                    <span class="hljs-string">&quot;version: 1.0&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;()
+            {
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+              }
+
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+              }
+            });
+</code></pre>
+<h2 id="raml-08-parsing">RAML 0.8 parsing</h2>
+<h3 id="parse-file-with-future">Parse file with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 08 with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml08Parser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api-08.raml&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-file-with-handler">Parse file with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 08 with specified file and async handler. */</span>
+    <span class="hljs-keyword">new</span> Raml08Parser().parseFile(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api-08.raml&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;() {
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+      }
+
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+      }
+    });
+</code></pre>
+<h3 id="parse-string-with-future">Parse string with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 08 with specified content. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Raml08Parser().parseStringAsync(
+            <span class="hljs-string">&quot;#%RAML 0.8\n&quot;</span> +
+            <span class="hljs-string">&quot;\n&quot;</span> +
+            <span class="hljs-string">&quot;title: ACME Banking HTTP API\n&quot;</span> +
+            <span class="hljs-string">&quot;version: 1.0&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-string-with-handler">Parse string with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Raml 08 with specified content and async handler. */</span>
+    <span class="hljs-keyword">new</span> Raml08Parser().parseString(
+            <span class="hljs-string">&quot;#%RAML 0.8\n&quot;</span> +
+                    <span class="hljs-string">&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;title: ACME Banking HTTP API\n&quot;</span> +
+                    <span class="hljs-string">&quot;version: 1.0&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;()
+            {
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+              }
+
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+              }
+            });
+</code></pre>
+<h2 id="oas-20-parsing">OAS 2.0 parsing</h2>
+<h3 id="parse-file-with-future">Parse file with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Oas 20 with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Oas20Parser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.json&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-file-with-handler">Parse file with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Oas 20 with specified file and async handler. */</span>
+    <span class="hljs-keyword">new</span> Oas20Parser().parseFile(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.json&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;() {
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+      }
+
+      <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+      }
+    });
+</code></pre>
+<h3 id="parse-string-with-future">Parse string with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Oas 20 with specified content. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> Oas20Parser().parseStringAsync(
+            <span class="hljs-string">&quot;{\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;swagger\&quot;: \&quot;2.0\&quot;,\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;info\&quot;: {\n&quot;</span> +
+            <span class="hljs-string">&quot;    \&quot;title\&quot;: \&quot;ACME Banking HTTP API\&quot;,\n&quot;</span> +
+            <span class="hljs-string">&quot;    \&quot;version\&quot;: \&quot;1.0\&quot;\n&quot;</span> +
+            <span class="hljs-string">&quot;  },\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;host\&quot;: \&quot;acme-banking.com\&quot;&quot;</span> +
+            <span class="hljs-string">&quot;}&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-string-with-handler">Parse string with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing Oas 20 with specified content and async handler. */</span>
+    <span class="hljs-keyword">new</span> Oas20Parser().parseString(
+            <span class="hljs-string">&quot;{\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;swagger\&quot;: \&quot;2.0\&quot;,\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;info\&quot;: {\n&quot;</span> +
+            <span class="hljs-string">&quot;    \&quot;title\&quot;: \&quot;ACME Banking HTTP API\&quot;,\n&quot;</span> +
+            <span class="hljs-string">&quot;    \&quot;version\&quot;: \&quot;1.0\&quot;\n&quot;</span> +
+            <span class="hljs-string">&quot;  },\n&quot;</span> +
+            <span class="hljs-string">&quot;  \&quot;host\&quot;: \&quot;acme-banking.com\&quot;&quot;</span> +
+            <span class="hljs-string">&quot;}&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;()
+            {
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+              }
+
+              <span class="hljs-meta">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+              }
+            });
+</code></pre>
+<h2 id="amf-parsing">AMF parsing</h2>
+<h3 id="parse-file-with-future">Parse file with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing AMF graph with specified file returning future. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> AmfGraphParser().parseFileAsync(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.jsonld&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-file-with-handler">Parse file with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing AMF graph with specified file and async handler. */</span>
+    <span class="hljs-keyword">new</span> AmfGraphParser().parseFile(<span class="hljs-string">&quot;file://src/main/resources/examples/banking-api.jsonld&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;() {
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+      }
+    });
+</code></pre>
+<h3 id="parse-string-with-future">Parse string with future</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing AMF graph with specified content. */</span>
+    <span class="hljs-keyword">final</span> BaseUnit result = <span class="hljs-keyword">new</span> AmfGraphParser().parseStringAsync(
+            <span class="hljs-string">&quot;[\n&quot;</span> +
+                    <span class="hljs-string">&quot;  {\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;@id\&quot;: \&quot;\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;@type\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Document\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Fragment\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Module\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Unit\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;    ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;http://raml.org/vocabularies/document#encodes\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;      {\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;@id\&quot;: \&quot;#/web-api\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;@type\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          \&quot;http://schema.org/WebAPI\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;          \&quot;http://raml.org/vocabularies/document#DomainElement\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;http://schema.org/name\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          {\n&quot;</span> +
+                    <span class="hljs-string">&quot;            \&quot;@value\&quot;: \&quot;ACME Banking HTTP API\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;          }\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;http://raml.org/vocabularies/http#host\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          {\n&quot;</span> +
+                    <span class="hljs-string">&quot;            \&quot;@value\&quot;: \&quot;acme-banking.com\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;          }\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ]&quot;</span> +
+                    <span class="hljs-string">&quot;}]}]&quot;</span>).get();
+    System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+</code></pre>
+<h3 id="parse-string-with-handler">Parse string with handler</h3>
+<pre><code class="lang-java">    AMF.init().get();
+
+    <span class="hljs-comment">/* Parsing AMF graph with specified content and async handler. */</span>
+    <span class="hljs-keyword">new</span> AmfGraphParser().parseString(
+            <span class="hljs-string">&quot;[\n&quot;</span> +
+                    <span class="hljs-string">&quot;  {\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;@id\&quot;: \&quot;\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;@type\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Document\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Fragment\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Module\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;      \&quot;http://raml.org/vocabularies/document#Unit\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;    ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;    \&quot;http://raml.org/vocabularies/document#encodes\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;      {\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;@id\&quot;: \&quot;#/web-api\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;@type\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          \&quot;http://schema.org/WebAPI\&quot;,\n&quot;</span> +
+                    <span class="hljs-string">&quot;          \&quot;http://raml.org/vocabularies/document#DomainElement\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;http://schema.org/name\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          {\n&quot;</span> +
+                    <span class="hljs-string">&quot;            \&quot;@value\&quot;: \&quot;ACME Banking HTTP API\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;          }\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ],\n&quot;</span> +
+                    <span class="hljs-string">&quot;        \&quot;http://raml.org/vocabularies/http#host\&quot;: [\n&quot;</span> +
+                    <span class="hljs-string">&quot;          {\n&quot;</span> +
+                    <span class="hljs-string">&quot;            \&quot;@value\&quot;: \&quot;acme-banking.com\&quot;\n&quot;</span> +
+                    <span class="hljs-string">&quot;          }\n&quot;</span> +
+                    <span class="hljs-string">&quot;        ]&quot;</span> +
+                    <span class="hljs-string">&quot;}]}]&quot;</span>, <span class="hljs-keyword">new</span> Handler&lt;BaseUnit&gt;() {
+              <span class="hljs-meta">@Override</span>
+              <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">success</span><span class="hljs-params">(BaseUnit result)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Expected unit encoding webapi: &quot;</span> + ((Document) result).encodes());
+              }
+
+              <span class="hljs-meta">@Override</span>
+              <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">error</span><span class="hljs-params">(Throwable exception)</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;Unexpected exception during parsing: &quot;</span> + exception);
+              }
+            });
+</code></pre>
 
                                 
                                 </section>
@@ -550,7 +826,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Parsing","level":"2.3","depth":1,"next":{"title":"Resolution","level":"2.4","depth":1,"path":"programming/resolution.md","ref":"programming/resolution.md","articles":[]},"previous":{"title":"Initialization","level":"2.2","depth":1,"path":"programming/initialization.md","ref":"programming/initialization.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"programming/parsing.md","mtime":"2018-03-23T03:25:00.795Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-27T04:43:33.008Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Parsing","level":"2.3","depth":1,"next":{"title":"Resolution","level":"2.4","depth":1,"path":"programming/resolution.md","ref":"programming/resolution.md","articles":[]},"previous":{"title":"Initialization","level":"2.2","depth":1,"path":"programming/initialization.md","ref":"programming/initialization.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["github-extractor"],"pluginsConfig":{"github-extractor":{"token":""},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"programming/parsing.md","mtime":"2018-04-03T00:55:18.826Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-03T02:18:19.641Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -559,10 +835,6 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
