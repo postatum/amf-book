@@ -6,17 +6,17 @@ Renderers can be found at package ```amf.client.render```. All render methods ar
 
 ### Render file with future (java only)
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-future)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-future)
 
 ### Render file with handler (java only)
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-handler)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-handler)
 
 ### Render string with future
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-future)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-future)
 
 
 ### Render string with handler
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-handler)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-handler)

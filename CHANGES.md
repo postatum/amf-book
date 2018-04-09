@@ -1,3 +1,19 @@
+# Changes in AMF snapshot
+
+AMF snapshot does not introduce any non-backwards-compatible change.
+
+## Custom Resolution
+
+A resolution pipeline can be optionally specified to run a different set of steps. See [Resolution](programming/resolution.md).
+
+## Fields
+
+Scalar value annotations are now typed and accessible.
+
+Option method is now Java `Optional` and JS `UndefOr`.
+
+See [Model](programming/model.md#fields).
+
 # Changes in AMF 1.3.0
 
 [Released March 27, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.0)
