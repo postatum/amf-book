@@ -10,7 +10,7 @@ Renderers can be found at package ```amf.client.render```. All render methods ar
 [example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-future)
 {%- endcodetabs %}
 
-### Render file with handler (Java only)
+### Render file with handler
 
 {% codetabs name="Java", type="java" -%}
 [example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-handler)

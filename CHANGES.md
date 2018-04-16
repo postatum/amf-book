@@ -16,6 +16,48 @@ Option method is now Java `Optional` and JS `UndefOr`.
 
 See [Model](programming/model.md#fields).
 
+## Dialects
+
+Added support for parsing dialects/instances from JSON files through the use of `$dialect`.
+
+Example of dialect definition:
+
+```json
+{
+  "$dialect": "RAML 1.0 Dialect",
+  "dialect": "TestInstance",
+  "version": "1.17",
+  "nodeMappings": {
+    "RootNode": {
+      "classTerm": "tmp.str",
+      "mapping": {
+        "str": {
+          "propertyTerm": "tmp.str",
+          "range": "string"
+        }
+      }
+    }
+  },
+  "documents": {
+    "root": {
+      "encodes": "RootNode"
+    }
+  },
+  "external": {
+    "tmp": "http://test/com/tmp#"
+  }
+}
+```
+
+Dialect instance for the above example:
+
+```json
+{
+  "$dialect": "TestInstance 1.17",
+  "str": "hey ho, let's go"
+}
+```
+
 ## Fixed issues and stories
 
 [APIMF-453](https://www.mulesoft.org/jira/browse/APIMF-453)
