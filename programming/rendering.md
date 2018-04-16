@@ -4,19 +4,27 @@ Renderers can be found at package ```amf.client.render```. All render methods ar
 
 ## RAML 1.0 rendering
 
-### Render file with future (java only)
+### Render file with future
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-future)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-future)
+{%- endcodetabs %}
 
-### Render file with handler (java only)
+### Render file with handler (Java only)
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-handler)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-file-handler)
+{%- endcodetabs %}
 
 ### Render string with future
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-future)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-future)
+{%- endcodetabs %}
 
 
 ### Render string with handler
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-handler)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/render/Raml10Rendering.java#raml-10-render-string-handler)
+{%- endcodetabs %}

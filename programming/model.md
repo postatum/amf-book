@@ -10,26 +10,36 @@ Available field wrappers are `StrField`, `IntField`, `BoolField`, `DoubleField`,
 
 ###Accessing defined field
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-defined)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-defined)
+{%- endcodetabs %}
 
 ###Accessing `null / undefined` field
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-undefined)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-undefined)
+{%- endcodetabs %}
 
 ###Accessing scalar annotations
 
 To access custom annotations, see `annotations > custom` field method:
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-annotations)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-annotations)
+{%- endcodetabs %}
 
 Above example corresponds to the following webapi definition:
 
+{% codetabs name="Java", type="java" -%}
 [example-raml](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/resources/examples/scalar-annotations.raml)
+{%- endcodetabs %}
 
 ## WebApi plugin
 
 AMF WebApi plugin allows to programmatically create and traverse a WebApi.
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/WebApiBuilder.java#raml-10-webapi-builder)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/WebApiBuilder.java#raml-10-webapi-builder)
+{%- endcodetabs %}
 
 ## Fields

@@ -642,11 +642,15 @@ The following Java snippets shows how to programmatically invoke validations.
 
 ### WebApi default validation
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-validation)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-validation)
+{%- endcodetabs %}
 
 ### WebApi custom validation
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-custom-validation)
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/java/co/acme/validate/WebApiValidation.java#raml-10-webapi-custom-validation)
+{%- endcodetabs %}
 
 Both functions produce a `AMFValidationReport` object that can be used to check conformance and inspect the validations.
 The interface is the same in the JavaScript version of the library.
