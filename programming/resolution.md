@@ -4,8 +4,8 @@ Resolvers can be found at package ```amf.client.resolve```. A resolution pipelin
 
 ## Default resolution
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/resolve/Raml10Resolution.java#raml-10-default-resolution)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.0/src/main/java/co/acme/resolve/Raml10Resolution.java#raml-10-default-resolution)
 
 ## Editing resolution
 
-[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v.1.3.0/src/main/java/co/acme/resolve/Raml10Resolution.java#raml-10-editing-resolution)
+[example-java](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.0/src/main/java/co/acme/resolve/Raml10Resolution.java#raml-10-editing-resolution)
