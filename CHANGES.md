@@ -1,6 +1,8 @@
-# Changes in AMF snapshot
+# Changes in AMF 1.3.1
 
-AMF snapshot does not introduce any non-backwards-compatible change.
+[Released April 13, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.1)
+
+AMF 1.3.1 does not introduce any non-backwards-compatible change.
 
 ## Custom Resolution
 
@@ -13,6 +15,67 @@ Scalar value annotations are now typed and accessible.
 Option method is now Java `Optional` and JS `UndefOr`.
 
 See [Model](programming/model.md#fields).
+
+## Fixed issues and stories
+
+[APIMF-453](https://www.mulesoft.org/jira/browse/APIMF-453)
+[APIMF-489](https://www.mulesoft.org/jira/browse/APIMF-489)
+[APIMF-490](https://www.mulesoft.org/jira/browse/APIMF-490)
+[APIMF-493](https://www.mulesoft.org/jira/browse/APIMF-493)
+[APIMF-494](https://www.mulesoft.org/jira/browse/APIMF-494)
+[APIMF-496](https://www.mulesoft.org/jira/browse/APIMF-496)
+[APIMF-497](https://www.mulesoft.org/jira/browse/APIMF-497)
+[APIMF-498](https://www.mulesoft.org/jira/browse/APIMF-498)
+[APIMF-499](https://www.mulesoft.org/jira/browse/APIMF-499)
+[APIMF-500](https://www.mulesoft.org/jira/browse/APIMF-500)
+[APIMF-540](https://www.mulesoft.org/jira/browse/APIMF-540)
+[APIMF-541](https://www.mulesoft.org/jira/browse/APIMF-541)
+[APIMF-545](https://www.mulesoft.org/jira/browse/APIMF-545)
+[APIMF-546](https://www.mulesoft.org/jira/browse/APIMF-546)
+[APIMF-546](https://www.mulesoft.org/jira/browse/APIMF-546)
+[APIMF-548](https://www.mulesoft.org/jira/browse/APIMF-548)
+[APIMF-552](https://www.mulesoft.org/jira/browse/APIMF-552)
+[APIMF-553](https://www.mulesoft.org/jira/browse/APIMF-553)
+[APIMF-556](https://www.mulesoft.org/jira/browse/APIMF-556)
+[APIMF-564](https://www.mulesoft.org/jira/browse/APIMF-564)
+[APIMF-566](https://www.mulesoft.org/jira/browse/APIMF-566)
+[APIMF-568](https://www.mulesoft.org/jira/browse/APIMF-568)
+[APIMF-570](https://www.mulesoft.org/jira/browse/APIMF-570)
+[APIMF-571](https://www.mulesoft.org/jira/browse/APIMF-571)
+[APIMF-572](https://www.mulesoft.org/jira/browse/APIMF-572)
+[APIMF-573](https://www.mulesoft.org/jira/browse/APIMF-573)
+[APIMF-574](https://www.mulesoft.org/jira/browse/APIMF-574)
+[APIMF-576](https://www.mulesoft.org/jira/browse/APIMF-576)
+[APIMF-577](https://www.mulesoft.org/jira/browse/APIMF-577)
+[APIMF-578](https://www.mulesoft.org/jira/browse/APIMF-578)
+[APIMF-579](https://www.mulesoft.org/jira/browse/APIMF-579)
+[APIMF-580](https://www.mulesoft.org/jira/browse/APIMF-580)
+[APIMF-581](https://www.mulesoft.org/jira/browse/APIMF-581)
+[APIMF-582](https://www.mulesoft.org/jira/browse/APIMF-582)
+[APIMF-587](https://www.mulesoft.org/jira/browse/APIMF-587)
+[APIMF-595](https://www.mulesoft.org/jira/browse/APIMF-595)
+[APIMF-612](https://www.mulesoft.org/jira/browse/APIMF-612)
+[APIMF-615](https://www.mulesoft.org/jira/browse/APIMF-615)
+[APIMF-620](https://www.mulesoft.org/jira/browse/APIMF-620)
+[APIMF-626](https://www.mulesoft.org/jira/browse/APIMF-626)
+[APIMF-626](https://www.mulesoft.org/jira/browse/APIMF-626)
+[APIMF-627](https://www.mulesoft.org/jira/browse/APIMF-627)
+[APIMF-628](https://www.mulesoft.org/jira/browse/APIMF-628)
+[APIMF-631](https://www.mulesoft.org/jira/browse/APIMF-631)
+[APIMF-632](https://www.mulesoft.org/jira/browse/APIMF-632)
+[APIMF-634](https://www.mulesoft.org/jira/browse/APIMF-634)
+[APIMF-635](https://www.mulesoft.org/jira/browse/APIMF-635)
+[APIMF-636](https://www.mulesoft.org/jira/browse/APIMF-636)
+[APIMF-639](https://www.mulesoft.org/jira/browse/APIMF-639)
+[APIMF-640](https://www.mulesoft.org/jira/browse/APIMF-640)
+[APIMF-641](https://www.mulesoft.org/jira/browse/APIMF-641)
+[APIMF-642](https://www.mulesoft.org/jira/browse/APIMF-642)
+[APIMF-645](https://www.mulesoft.org/jira/browse/APIMF-645)
+[APIMF-651](https://www.mulesoft.org/jira/browse/APIMF-651)
+[APIMF-652](https://www.mulesoft.org/jira/browse/APIMF-652)
+[APIMF-656](https://www.mulesoft.org/jira/browse/APIMF-656)
+[APIMF-665](https://www.mulesoft.org/jira/browse/APIMF-665)
+[APIMF-666](https://www.mulesoft.org/jira/browse/APIMF-666)
 
 # Changes in AMF 1.3.0
 
