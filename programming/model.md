@@ -11,27 +11,37 @@ Available field wrappers are `StrField`, `IntField`, `BoolField`, `DoubleField`,
 ###Accessing defined field
 
 {% codetabs name="Java", type="java" -%}
-[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-defined)
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/test/java/co/acme/model/Fields.java#field-defined)
 {%- endcodetabs %}
 
 ###Accessing `null / undefined` field
 
 {% codetabs name="Java", type="java" -%}
-[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-undefined)
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/test/java/co/acme/model/Fields.java#field-undefined)
+{%- endcodetabs %}
+
+## Annotations
+
+Custom annotations on elements and scalars are accessible on model. 
+
+Bellow example defines a webapi with custom annotations:
+
+[example-raml](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/main/resources/examples/custom-annotations.raml)
+
+###Accessing element annotations
+
+To access element custom annotations, see `customDomainProperties` domain element method:
+
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/test/java/co/acme/model/Annotations.java#element-annotations)
 {%- endcodetabs %}
 
 ###Accessing scalar annotations
 
-To access custom annotations, see `annotations > custom` field method:
+To access scalar custom annotations, see `annotations > custom` field method:
 
 {% codetabs name="Java", type="java" -%}
-[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/Fields.java#field-annotations)
-{%- endcodetabs %}
-
-Above example corresponds to the following webapi definition:
-
-{% codetabs name="Java", type="java" -%}
-[example-raml](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/main/resources/examples/scalar-annotations.raml)
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/test/java/co/acme/model/Annotations.java#field-annotations)
 {%- endcodetabs %}
 
 ## WebApi plugin
@@ -39,7 +49,5 @@ Above example corresponds to the following webapi definition:
 AMF WebApi plugin allows to programmatically create and traverse a WebApi.
 
 {% codetabs name="Java", type="java" -%}
-[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/snapshot/src/test/java/co/acme/model/WebApiBuilder.java#raml-10-webapi-builder)
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/test/java/co/acme/model/WebApiBuilder.java#raml-10-webapi-builder)
 {%- endcodetabs %}
-
-## Fields
