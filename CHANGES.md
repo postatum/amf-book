@@ -1,3 +1,33 @@
+# Changes in AMF 1.3.5
+
+[Released May 09, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.5)
+
+## Vocabularies Plugin
+
+**Change header in Dialect definition file**
+
+```
+#%Dialect 1.0
+```
+instead of previous:
+```
+#%RAML 1.0 Dialect
+```
+
+**Change header in Vocabularies definition file**
+
+```
+#%Vocabulary 1.0
+```
+instead of previous:
+```
+#%RAML 1.0 Vocabulary
+```
+
+## Domain Element
+
+All the graphs method inside a DomainElement are now inside a Graph Object that is obtained with "graph" method in the DomainElement
+
 # Changes in AMF 1.3.1
 
 [Released April 13, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.1)
