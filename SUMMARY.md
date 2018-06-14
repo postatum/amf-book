@@ -33,6 +33,7 @@
 * [Open API 2.0](models/oas20.md)
 
 ### CHANGES
+* [v 1.4.0](CHANGES.md#changes-in-amf-140)
 * [v 1.3.5](CHANGES.md#changes-in-amf-135)
 * [v 1.3.1](CHANGES.md#changes-in-amf-131)
 * [v 1.3.0](CHANGES.md#changes-in-amf-130)

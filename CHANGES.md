@@ -1,3 +1,94 @@
+# Changes in AMF 1.4.0
+
+[Released Jun 08, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.4.0)
+
+This version has performance improvement's & bug fixing.
+Just a litle change of behaviour in generation.
+
+## Generation
+
+**Change behaviour of particular scalar strings**
+
+When a scalar string text its from another type value, it will be quoted.
+
+```
+scalarvalue: "true"
+```
+instead of previous:
+```
+scalarvalue: true
+```
+
+Notice that the scalar is not a boolean, but a string. 
+
+## Fixed issues
+
+ - [APIMF-829 - java.lang.ClassCastException: amf.plugins.domain.shapes.models.NodeShape cannot be cast to amf.core.model.domain.templates.AbstractDeclaration](https://www.mulesoft.org/jira/browse/APIMF-829)
+ - [APIMF-824 - AMF Validation fails with Scalar at / must have data type http://www.w3.org/2001/XMLSchema#string](https://www.mulesoft.org/jira/browse/APIMF-824)
+ - [APIMF-820 - AMF validate fails with Error recursive shape](https://www.mulesoft.org/jira/browse/APIMF-820)
+ - [APIMF-819 - StackOverflow validating an API](https://www.mulesoft.org/jira/browse/APIMF-819)
+ - [APIMF-818 - Datetime datatype instantiated in json example does not validate](https://www.mulesoft.org/jira/browse/APIMF-818)
+ - [APIMF-816 - AMF parser should consider methods connect and trace as valid](https://www.mulesoft.org/jira/browse/APIMF-816)
+ - [APIMF-815 - Error validating required fields against JSON Schema](https://www.mulesoft.org/jira/browse/APIMF-815)
+ - [APIMF-811 - API parsing takes too much time to run ReferenceResolutionStage step for validation resolution.](https://www.mulesoft.org/jira/browse/APIMF-811)
+ - [APIMF-808 - YException: Not a YScalar](https://www.mulesoft.org/jira/browse/APIMF-808)
+ - [APIMF-807 - AMF validation & resolution throws scala.MatchError: null](https://www.mulesoft.org/jira/browse/APIMF-807)
+ - [APIMF-806 - NumberFormatException with date at parse time](https://www.mulesoft.org/jira/browse/APIMF-806)
+ - [APIMF-804 - AMF resolution throws java.lang.Exception: Resolution error: Found shape without ID](https://www.mulesoft.org/jira/browse/APIMF-804)
+ - [APIMF-801 - Discriminator is invalid for union types](https://www.mulesoft.org/jira/browse/APIMF-801)
+ - [APIMF-799 - UnknownHostException while parsing an API](https://www.mulesoft.org/jira/browse/APIMF-799)
+ - [APIMF-796 - Error "Not a YMap" when "responses" is empty](https://www.mulesoft.org/jira/browse/APIMF-796)
+ - [APIMF-794 - AMF Validation fails with a property defined diferently in separate schemas](https://www.mulesoft.org/jira/browse/APIMF-794)
+ - [APIMF-792 - org.yaml.model.YException: Not a YScalar](https://www.mulesoft.org/jira/browse/APIMF-792)
+ - [APIMF-791 - Cannot parse data node from AST structure ?](https://www.mulesoft.org/jira/browse/APIMF-791)
+ - [APIMF-790 - Scala match error: !include in Raml08DocumentParser](https://www.mulesoft.org/jira/browse/APIMF-790)
+ - [APIMF-789 - NullPointerException in YamlParser.createNode()](https://www.mulesoft.org/jira/browse/APIMF-789)
+ - [APIMF-788 - AMF Validate fails with min. cardinality 1 when using a pattern to declare a property name](https://www.mulesoft.org/jira/browse/APIMF-788)
+ - [APIMF-787 - Schema is null for empty bodies](https://www.mulesoft.org/jira/browse/APIMF-787)
+ - [APIMF-786 - OAS 2.0 an exception is thrown when body and formData parameters are linked at once](https://www.mulesoft.org/jira/browse/APIMF-786)
+ - [APIMF-785 - OAS 2.0 Exception is thrown for in-formData parameter with no 'type' specified](https://www.mulesoft.org/jira/browse/APIMF-785)
+ - [APIMF-783 - API resolution does not end](https://www.mulesoft.org/jira/browse/APIMF-783)
+ - [APIMF-781 - AMF validation throws java.lang.Exception: Cannot find node with validation error](https://www.mulesoft.org/jira/browse/APIMF-781)
+ - [APIMF-780 - AMF validation throws scala.MatchError](https://www.mulesoft.org/jira/browse/APIMF-780)
+ - [APIMF-779 - AMF resolution throws InheritanceIncompatibleShapeError](https://www.mulesoft.org/jira/browse/APIMF-779)
+ - [APIMF-778 - Unhandled status code 404](https://www.mulesoft.org/jira/browse/APIMF-778)
+ - [APIMF-777 - AMF Validate throws NumberFormatException when using exclusiveMaximum in JSON Schema](https://www.mulesoft.org/jira/browse/APIMF-777)
+ - [APIMF-776 - Validation ignores pattern on strings](https://www.mulesoft.org/jira/browse/APIMF-776)
+ - [APIMF-774 - org.yaml.model.YException: Not a YSequence parsing an API](https://www.mulesoft.org/jira/browse/APIMF-774)
+ - [APIMF-773 - No loader for urn:jsonschema:com:menasha:enterprise:Document](https://www.mulesoft.org/jira/browse/APIMF-773)
+ - [APIMF-772 - AMF Throws NullPointerException while validating or resolving, TraitResolver.resolveOperation](https://www.mulesoft.org/jira/browse/APIMF-772)
+ - [APIMF-770 - NullPointerException in org.yaml.model.YScalar](https://www.mulesoft.org/jira/browse/APIMF-770)
+ - [APIMF-767 - RAML 1.0 empty default body results in Payload with no SourceAST and SourceNode](https://www.mulesoft.org/jira/browse/APIMF-767)
+ - [APIMF-766 - AMF validation "hangs" validating RAML 1.0 API](https://www.mulesoft.org/jira/browse/APIMF-766)
+ - [APIMF-764 - Validation of recursive type definition should fail (exception)](https://www.mulesoft.org/jira/browse/APIMF-764)
+ - [APIMF-761 - Invalid version of "amf-shacl-node" in amf-client-js manifest](https://www.mulesoft.org/jira/browse/APIMF-761)
+ - [APIMF-760 - Null defaultValue for query parameter in Raml 0.8](https://www.mulesoft.org/jira/browse/APIMF-760)
+ - [APIMF-759 - Empty uri parameters for Raml 0.8](https://www.mulesoft.org/jira/browse/APIMF-759)
+ - [APIMF-754 - scala match error in amf.plugins.domain.shapes.parser.XsdTypeDefMapping$.xsdFromString](https://www.mulesoft.org/jira/browse/APIMF-754)
+ - [APIMF-753 - Error validating string when the value is either a number or a boolean wrapped into a string](https://www.mulesoft.org/jira/browse/APIMF-753)
+ - [APIMF-752 - YException: Expecting !!str and !!map provided](https://www.mulesoft.org/jira/browse/APIMF-752)
+ - [APIMF-750 - NoSuchElementException parsing JSON schema expression](https://www.mulesoft.org/jira/browse/APIMF-750)
+ - [APIMF-749 - YException: Expecting !!str and !!int provided](https://www.mulesoft.org/jira/browse/APIMF-749)
+ - [APIMF-748 - NullPointerException in RAML08 type parser](https://www.mulesoft.org/jira/browse/APIMF-748)
+ - [APIMF-747 - AMF Validation took more than 10 minutes to validate](https://www.mulesoft.org/jira/browse/APIMF-747)
+ - [APIMF-746 - Windows OS: error when trying to parse RAML file](https://www.mulesoft.org/jira/browse/APIMF-746)
+ - [APIMF-744 - multipleOf facet validation not working with non-decimal values](https://www.mulesoft.org/jira/browse/APIMF-744)
+ - [APIMF-743 - AMF Validation throws GC overhead with an api of Exchange](https://www.mulesoft.org/jira/browse/APIMF-743)
+ - [APIMF-737 - AMF parsing fails with ClassCastException: org.yaml.model.YNonContent cannot be cast to org.yaml.model.YDocument](https://www.mulesoft.org/jira/browse/APIMF-737)
+ - [APIMF-736 - RAML 1.0 Template parameters with no values cause serialization fall with exception](https://www.mulesoft.org/jira/browse/APIMF-736)
+ - [APIMF-734 - Properties minimun and maximun not supported for numbers in raml 0.8](https://www.mulesoft.org/jira/browse/APIMF-734)
+ - [APIMF-732 - JsonSchema generated for Payload in Raml 0.8 always turn on additionalProperties](https://www.mulesoft.org/jira/browse/APIMF-732)
+ - [APIMF-731 - JsonSchema for Arrays in  RAML 1.0 doesn't specified type](https://www.mulesoft.org/jira/browse/APIMF-731)
+ - [APIMF-730 - AMF Validates invalid datetime example](https://www.mulesoft.org/jira/browse/APIMF-730)
+ - [APIMF-729 - RAML 1.0 and OAS 2.0. YAML. In examples "true" and "false" strings are serialized as booleans.](https://www.mulesoft.org/jira/browse/APIMF-729)
+ - [APIMF-727 - Error getting a jsonSchema from a queryParams of type File in RAML 0.8](https://www.mulesoft.org/jira/browse/APIMF-727)
+ - [APIMF-725 - EndPoint Uri Parameters order is unpredictable](https://www.mulesoft.org/jira/browse/APIMF-725)
+ - [APIMF-723 - Resource loader that sets invalid URI to Content ends with exception in validation](https://www.mulesoft.org/jira/browse/APIMF-723)
+ - [APIMF-722 - FileShape bug in RAML dump](https://www.mulesoft.org/jira/browse/APIMF-722)
+ - [APIMF-720 - Inconsistency found when defining request media types in raml and oas](https://www.mulesoft.org/jira/browse/APIMF-720)
+ - [APIMF-719 - multipart/form-data media types are handled differently for oas and raml](https://www.mulesoft.org/jira/browse/APIMF-719)
+ - [APIMF-718 - Add withSchema method to Parameter](https://www.mulesoft.org/jira/browse/APIMF-718)
+
 # Changes in AMF 1.3.5
 
 [Released May 09, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.3.5)
