@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 GH_PAGES_FOLDER="./gh-pages-repo"
-GH_PAGES_REPO="git@github.com:postatum/test-gh-pages.git"
+GH_PAGES_REPO="git@github.com:USERNAME/REPO_NAME.git"
 
 echo "publish >> Building HTML"
 gitbook build
