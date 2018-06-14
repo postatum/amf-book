@@ -3,7 +3,7 @@
 [Released Jun 08, 2018.](https://github.com/mulesoft/amf/releases/tag/v1.4.0)
 
 This version has performance improvement's & bug fixing.
-Just a litle change of behaviour in generation.
+Just a little change of behaviour in generation & handlers.
 
 ## Generation
 
@@ -18,6 +18,24 @@ instead of previous:
 ```
 scalarvalue: true
 ```
+
+## Handlers
+
+Handlers were deprecated, use Promise/Future instead.
+
+**Example:**
+
+Use future:
+
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/main/java/co/acme/parse/Raml08Parsing.java#raml-08-parse-file-future)
+{%- endcodetabs %}
+
+Instead of using handler:
+
+{% codetabs name="Java", type="java" -%}
+[example-raw](https://raw.githubusercontent.com/mulesoft/amf-examples/v1.3.1/src/main/java/co/acme/parse/Raml08Parsing.java#raml-08-parse-file-handler)
+{%- endcodetabs %}
 
 Notice that the scalar is not a boolean, but a string. 
 
